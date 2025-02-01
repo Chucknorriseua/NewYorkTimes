@@ -45,7 +45,7 @@ struct ArticleDetailseView: View {
                             .frame(width: 200, height: 200)
                     }
                     Group {
-                        VStack(alignment: .leading, spacing: 14) {
+                        VStack(alignment: .center, spacing: 14) {
                             Text(articleResults.title)
                                 .foregroundStyle(Color.yellow)
                                 .font(.system(size: 22, weight: .heavy))
