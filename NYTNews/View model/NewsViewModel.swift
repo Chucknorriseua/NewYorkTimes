@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-class NewsViewModel: ObservableObject {
+final class NewsViewModel: ObservableObject {
     
     static var shared = NewsViewModel()
     
@@ -25,7 +25,7 @@ class NewsViewModel: ObservableObject {
     @Published var errorMassage: String = ""
     let period = 30
     
-    init(mostEmailed: News? = nil, mostViewed: News? = nil, mostShared: News? = nil) {
+   private init(mostEmailed: News? = nil, mostViewed: News? = nil, mostShared: News? = nil) {
         self.mostEmailed = mostEmailed ?? News(status: "", copyright: "", numResults: 0, results: [])
         self.mostViewed = mostViewed ?? News(status: "", copyright: "", numResults: 0, results: [])
         self.mostShared = mostShared ?? News(status: "", copyright: "", numResults: 0, results: [])
@@ -56,7 +56,7 @@ class NewsViewModel: ObservableObject {
         return Set(mostViewed.results.compactMap { $0.section }).sorted()
     }
     
-    func fetchAllNews() {
+   private func fetchAllNews() {
         let group = DispatchGroup()
         
         group.enter()
@@ -99,7 +99,7 @@ class NewsViewModel: ObservableObject {
         }
     }
     
-    func fetchMyFavorites() {
+   private func fetchMyFavorites() {
         if let item = PersistenceController.shared.fetchAllItems() {
             DispatchQueue.main.async {
                 self.favoritesArray = item
@@ -107,7 +107,7 @@ class NewsViewModel: ObservableObject {
         }
     }
     
-    func filterNews(news: News, selectedCategory: String?) -> [ArticleResults] {
+  private  func filterNews(news: News, selectedCategory: String?) -> [ArticleResults] {
         var results = news.results
         
         if let selectedCategory = selectedCategory, !selectedCategory.isEmpty {
@@ -123,7 +123,7 @@ class NewsViewModel: ObservableObject {
         return results
     }
     
-    func filterNewsByDate(news: News) -> News {
+   private func filterNewsByDate(news: News) -> News {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         
@@ -180,7 +180,7 @@ class NewsViewModel: ObservableObject {
         }
     }
     
-    func getlImageUrl(from article: ArticleResults) -> String? {
+   private func getlImageUrl(from article: ArticleResults) -> String? {
         guard let media = article.media.first else { return nil }
         return media.mediaMetadata.last?.url
     }
