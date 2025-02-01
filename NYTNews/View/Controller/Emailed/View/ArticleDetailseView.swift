@@ -56,8 +56,8 @@ struct ArticleDetailseView: View {
                                 .font(.system(size: 16, weight: .heavy))
                             
                             Text(articleResults.adxKeywords ?? "")
-                                .foregroundStyle(Color.white)
-                                .font(.system(size: 14, weight: .heavy))
+                                .font(.system(size: 10, weight: .heavy, design: .monospaced))
+                                .truncationMode(.tail)
                             
                             
                             HStack {
