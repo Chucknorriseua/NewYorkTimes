@@ -56,52 +56,45 @@ class NewsViewModel: ObservableObject {
         return Set(mostViewed.results.compactMap { $0.section }).sorted()
     }
     
+      private func fetchNews(requestType: APIService.RequestType, completion: @escaping (News) -> Void) {
+        APIService.shared.fetchNews(period: period, requestType: requestType) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let news):
+                DispatchQueue.main.async {
+                    completion(self.filterNewsByDate(news: news))
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.isShowAlert = true
+                    self.errorMassage = error.localizedDescription
+                }
+            }
+        }
+    }
+    
     func fetchAllNews() {
         let group = DispatchGroup()
+        
         group.enter()
-        APIService.shared.fetchNews(period: period, requestType: .emailed) {[weak self] results in
-            guard let self else {return}
-            switch results {
-            case .success(let news):
-                DispatchQueue.main.async {
-                    self.mostEmailed = self.filterNewsByDate(news: news)
-                }
-            case .failure(let error):
-                self.isShowAlert = true
-                self.errorMassage = error.localizedDescription
-            }
+        fetchNews(requestType: .emailed) { [weak self] news in
+            self?.mostEmailed = news
             group.leave()
         }
+
         group.enter()
-        APIService.shared.fetchNews(period: period, requestType: .shared) {[weak self] results in
-            guard let self else {return}
-            switch results {
-            case .success(let news):
-                DispatchQueue.main.async {
-                    self.mostShared = self.filterNewsByDate(news: news)
-                }
-            case .failure(let error):
-                self.isShowAlert = true
-                self.errorMassage = error.localizedDescription
-            }
+        fetchNews(requestType: .shared) { [weak self] news in
+            self?.mostShared = news
             group.leave()
         }
+
         group.enter()
-        APIService.shared.fetchNews(period: period, requestType: .viewed) {[weak self] results in
-            guard let self else {return}
-            switch results {
-            case .success(let news):
-                DispatchQueue.main.async {
-                    self.mostViewed = self.filterNewsByDate(news: news)
-                }
-            case .failure(let error):
-                self.isShowAlert = true
-                self.errorMassage = error.localizedDescription
-            }
+        fetchNews(requestType: .viewed) { [weak self] news in
+            self?.mostViewed = news
             group.leave()
         }
+
         group.notify(queue: .main) {
-  
             print("fetch all data")
         }
     }
