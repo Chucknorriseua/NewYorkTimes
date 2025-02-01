@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC0E9B4F2D4EB3850091C8AE /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0E9B4E2D4EB3850091C8AE /* CustomPicker.swift */; };
+		BC0E9B522D4EC3A50091C8AE /* CustomButtonCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0E9B512D4EC3A50091C8AE /* CustomButtonCategory.swift */; };
 		BCF380532D4B471D003F97CF /* NYTNewsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF380522D4B471D003F97CF /* NYTNewsApp.swift */; };
 		BCF380552D4B471D003F97CF /* NYTTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF380542D4B471D003F97CF /* NYTTabBar.swift */; };
 		BCF380572D4B4720003F97CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCF380562D4B4720003F97CF /* Assets.xcassets */; };
@@ -31,6 +33,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BC0E9B4E2D4EB3850091C8AE /* CustomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
+		BC0E9B512D4EC3A50091C8AE /* CustomButtonCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonCategory.swift; sourceTree = "<group>"; };
 		BC658A842D4D47CF003F83F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		BCF3804F2D4B471D003F97CF /* NYTNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NYTNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCF380522D4B471D003F97CF /* NYTNewsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTNewsApp.swift; sourceTree = "<group>"; };
@@ -85,6 +89,15 @@
 				E436EA0353C7F840AF9DBD09 /* Pods-NYTNews.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		BC0E9B502D4EC37A0091C8AE /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				BC0E9B4E2D4EB3850091C8AE /* CustomPicker.swift */,
+				BC0E9B512D4EC3A50091C8AE /* CustomButtonCategory.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		BCF380462D4B471D003F97CF = {
@@ -231,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				BCF380882D4B9283003F97CF /* JSONNull.swift */,
+				BC0E9B502D4EC37A0091C8AE /* Component */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -381,12 +395,14 @@
 				BCF380842D4B921B003F97CF /* Media.swift in Sources */,
 				BCF380C22D4CB3FA003F97CF /* FavoritesDetailsView.swift in Sources */,
 				BCF3807C2D4B7E28003F97CF /* NewsViewModel.swift in Sources */,
+				BC0E9B522D4EC3A50091C8AE /* CustomButtonCategory.swift in Sources */,
 				BCF380802D4B8D7F003F97CF /* ArticleDetailseView.swift in Sources */,
 				BCF380782D4B67F1003F97CF /* APIService.swift in Sources */,
 				BCF380712D4B4CDC003F97CF /* ViewedController.swift in Sources */,
 				BCF3806D2D4B4C3A003F97CF /* EmailedController.swift in Sources */,
 				BCF380C02D4C9F3E003F97CF /* FavoritesController.swift in Sources */,
 				BCF380552D4B471D003F97CF /* NYTTabBar.swift in Sources */,
+				BC0E9B4F2D4EB3850091C8AE /* CustomPicker.swift in Sources */,
 				BCF380BD2D4BF57E003F97CF /* Persistens.swift in Sources */,
 				BCF380862D4B922D003F97CF /* MediaMetadatum.swift in Sources */,
 				BCF3806B2D4B4968003F97CF /* News.swift in Sources */,

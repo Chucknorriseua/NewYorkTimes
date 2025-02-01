@@ -46,7 +46,7 @@ struct FavoritesDetailsView: View {
                                 
                                 Text(favorites.adxKeywords ?? "")
                                     .foregroundColor(.white)
-                                    .font(.system(size: 12, weight: .heavy, design: .monospaced))
+                                    .font(.system(size: 10, weight: .heavy, design: .monospaced))
                                     .truncationMode(.tail)
                            
                                 HStack {

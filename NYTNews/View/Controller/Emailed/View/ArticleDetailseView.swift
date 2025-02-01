@@ -45,19 +45,20 @@ struct ArticleDetailseView: View {
                             .frame(width: 200, height: 200)
                     }
                     Group {
-                        VStack(alignment: .leading, spacing: 14) {
+                        VStack(alignment: .center, spacing: 14) {
                             Text(articleResults.title)
                                 .foregroundStyle(Color.yellow)
                                 .font(.system(size: 22, weight: .heavy))
                             
                             Text(articleResults.abstract)
                                 .foregroundStyle(Color.white)
-                                .fontDesign(.monospaced)
-                                .font(.system(size: 16, weight: .heavy))
+                                .fontDesign(.rounded)
+                                .font(.system(size: 18, weight: .heavy))
                             
                             Text(articleResults.adxKeywords ?? "")
-                                .foregroundStyle(Color.white)
-                                .font(.system(size: 14, weight: .heavy))
+                                .foregroundColor(.white)
+                                .font(.system(size: 14, weight: .heavy, design: .serif))
+                                .truncationMode(.tail)
                             
                             
                             HStack {

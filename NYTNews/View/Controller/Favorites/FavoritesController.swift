@@ -11,6 +11,7 @@ struct FavoritesController: View {
     
     
     @EnvironmentObject var newsViewModel: NewsViewModel
+    @State private var isShowDetailse: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -26,6 +27,7 @@ struct FavoritesController: View {
             }.scrollIndicators(.hidden)
                 .background(.ultraThinMaterial)
                 .background(Color.mint.opacity(0.4))
+            
         }
     }
 }

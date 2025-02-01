@@ -11,6 +11,7 @@ struct EmailedController: View {
     
     
     @EnvironmentObject var newsViewModel: NewsViewModel
+    @State private var isShowCategory: Bool = false
 
     
     var body: some View {
@@ -24,35 +25,23 @@ struct EmailedController: View {
                         }
                     }
                 }.padding(.horizontal, 8)
-                    .padding(.top, 46)
-                    .padding(.bottom, 60)
+                    .padding([.top, .bottom], 50)
                 
             }.scrollIndicators(.hidden)
                 .background(.ultraThinMaterial)
                 .background(Color.mint.opacity(0.4))
-            
-                .overlay(alignment: .topTrailing) {
+                .overlay(alignment: .topTrailing, content: {
+                    CustomButtonCategory(isShowCategory: $isShowCategory)
+                })
+                .overlay(alignment: .center) {
                     VStack {
-                        Picker("", selection: $newsViewModel.selectedEmailed) {
-                            Text("All").tag(nil as String?)
-                            ForEach(newsViewModel.emailedCategories, id: \.self) { category in
-                                Text(category).tag(category as String?)
-                            }
-                        }
-                        .pickerStyle(.menu)
-                        .tint(Color.white)
-                        .padding(.all, 2)
-              
-                    }.background(Color.blue.opacity(0.6))
-                        .clipShape(.rect(cornerRadius: 24))
-                        .padding(.trailing, 12)
+                        CustomPicker(article: newsViewModel.emailedCategories, selectedCtegory: $newsViewModel.selectedEmailed, isShowCategory: $isShowCategory)
+                    }
                 }
-         
+                .onDisappear {
+                    isShowCategory = false
+                }
         }
     }
-}
-
-#Preview {
-    EmailedController()
 }
 

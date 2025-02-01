@@ -45,10 +45,10 @@ struct ArticleResults: Identifiable, Codable, Hashable {
     
     mutating func sanitizeKeywords() {
         if let adxKeywords = adxKeywords {
-            self.adxKeywords = adxKeywords.replacingOccurrences(of: ";", with: "")
+            self.adxKeywords = adxKeywords.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: ";", with: " ")
         }
-        self.title = title.replacingOccurrences(of: ";", with: "")
-        self.abstract = abstract.replacingOccurrences(of: ";", with: "")
+        self.title = title.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: ";", with: " ")
+        self.abstract = abstract.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: ";", with: " ")
     }
 }
 

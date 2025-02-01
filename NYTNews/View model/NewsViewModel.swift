@@ -8,7 +8,8 @@
 import SwiftUI
 import CoreData
 
-class NewsViewModel: ObservableObject {
+
+final class NewsViewModel: ObservableObject {
     
     static var shared = NewsViewModel()
     
@@ -25,7 +26,7 @@ class NewsViewModel: ObservableObject {
     @Published var errorMassage: String = ""
     let period = 30
     
-    init(mostEmailed: News? = nil, mostViewed: News? = nil, mostShared: News? = nil) {
+    private init(mostEmailed: News? = nil, mostViewed: News? = nil, mostShared: News? = nil) {
         self.mostEmailed = mostEmailed ?? News(status: "", copyright: "", numResults: 0, results: [])
         self.mostViewed = mostViewed ?? News(status: "", copyright: "", numResults: 0, results: [])
         self.mostShared = mostShared ?? News(status: "", copyright: "", numResults: 0, results: [])
@@ -56,57 +57,50 @@ class NewsViewModel: ObservableObject {
         return Set(mostViewed.results.compactMap { $0.section }).sorted()
     }
     
-    func fetchAllNews() {
+    private func fetchAllNews() {
         let group = DispatchGroup()
+        
         group.enter()
-        APIService.shared.fetchNews(period: period, requestType: .emailed) {[weak self] results in
-            guard let self else {return}
-            switch results {
-            case .success(let news):
-                DispatchQueue.main.async {
-                    self.mostEmailed = self.filterNewsByDate(news: news)
-                }
-            case .failure(let error):
-                self.isShowAlert = true
-                self.errorMassage = error.localizedDescription
-            }
+        fetchNews(requestType: .emailed) { [weak self] news in
+            self?.mostEmailed = news
             group.leave()
         }
+
         group.enter()
-        APIService.shared.fetchNews(period: period, requestType: .shared) {[weak self] results in
-            guard let self else {return}
-            switch results {
-            case .success(let news):
-                DispatchQueue.main.async {
-                    self.mostShared = self.filterNewsByDate(news: news)
-                }
-            case .failure(let error):
-                self.isShowAlert = true
-                self.errorMassage = error.localizedDescription
-            }
+        fetchNews(requestType: .shared) { [weak self] news in
+            self?.mostShared = news
             group.leave()
         }
+
         group.enter()
-        APIService.shared.fetchNews(period: period, requestType: .viewed) {[weak self] results in
-            guard let self else {return}
-            switch results {
-            case .success(let news):
-                DispatchQueue.main.async {
-                    self.mostViewed = self.filterNewsByDate(news: news)
-                }
-            case .failure(let error):
-                self.isShowAlert = true
-                self.errorMassage = error.localizedDescription
-            }
+        fetchNews(requestType: .viewed) { [weak self] news in
+            self?.mostViewed = news
             group.leave()
         }
+
         group.notify(queue: .main) {
-  
             print("fetch all data")
         }
     }
     
-    func fetchMyFavorites() {
+    private func fetchNews(requestType: APIService.RequestType, completion: @escaping (News) -> Void) {
+        APIService.shared.fetchNews(period: period, requestType: requestType) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let news):
+                DispatchQueue.main.async {
+                    completion(self.filterNewsByDate(news: news))
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.isShowAlert = true
+                    self.errorMassage = error.localizedDescription
+                }
+            }
+        }
+    }
+    
+    private func fetchMyFavorites() {
         if let item = PersistenceController.shared.fetchAllItems() {
             DispatchQueue.main.async {
                 self.favoritesArray = item
@@ -114,7 +108,7 @@ class NewsViewModel: ObservableObject {
         }
     }
     
-    func filterNews(news: News, selectedCategory: String?) -> [ArticleResults] {
+    private func filterNews(news: News, selectedCategory: String?) -> [ArticleResults] {
         var results = news.results
         
         if let selectedCategory = selectedCategory, !selectedCategory.isEmpty {
@@ -130,7 +124,7 @@ class NewsViewModel: ObservableObject {
         return results
     }
     
-    func filterNewsByDate(news: News) -> News {
+    private func filterNewsByDate(news: News) -> News {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         
@@ -187,9 +181,8 @@ class NewsViewModel: ObservableObject {
         }
     }
     
-    func getlImageUrl(from article: ArticleResults) -> String? {
+    private func getlImageUrl(from article: ArticleResults) -> String? {
         guard let media = article.media.first else { return nil }
         return media.mediaMetadata.last?.url
     }
 }
-
