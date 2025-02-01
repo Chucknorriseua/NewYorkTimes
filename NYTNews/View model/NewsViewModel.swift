@@ -56,23 +56,6 @@ class NewsViewModel: ObservableObject {
         return Set(mostViewed.results.compactMap { $0.section }).sorted()
     }
     
-      private func fetchNews(requestType: APIService.RequestType, completion: @escaping (News) -> Void) {
-        APIService.shared.fetchNews(period: period, requestType: requestType) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(let news):
-                DispatchQueue.main.async {
-                    completion(self.filterNewsByDate(news: news))
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.isShowAlert = true
-                    self.errorMassage = error.localizedDescription
-                }
-            }
-        }
-    }
-    
     func fetchAllNews() {
         let group = DispatchGroup()
         
@@ -96,6 +79,23 @@ class NewsViewModel: ObservableObject {
 
         group.notify(queue: .main) {
             print("fetch all data")
+        }
+    }
+
+ private func fetchNews(requestType: APIService.RequestType, completion: @escaping (News) -> Void) {
+        APIService.shared.fetchNews(period: period, requestType: requestType) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let news):
+                DispatchQueue.main.async {
+                    completion(self.filterNewsByDate(news: news))
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.isShowAlert = true
+                    self.errorMassage = error.localizedDescription
+                }
+            }
         }
     }
     
