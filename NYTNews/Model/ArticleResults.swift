@@ -43,12 +43,12 @@ struct ArticleResults: Identifiable, Codable, Hashable {
         return ArticleResults(uri: "", url: "", id: 0, assetID: 0, source: Source(rawValue: "") ?? .newYorkTimes, publishedDate: "", updated: "", section: "", subsection: Subsection(rawValue: "") ?? .eat, nytdsection: "", adxKeywords: "", column: "", byline: "", type: ResultType(rawValue: "") ?? .article, title: "", abstract: "", desFacet: [], orgFacet: [], perFacet: [], geoFacet: [], media: [], etaID: 0)
     }
     
-     mutating func sanitizeKeywords() {
+    mutating func sanitizeKeywords() {
         if let adxKeywords = adxKeywords {
-            self.adxKeywords = adxKeywords.replacingOccurrences(of: "[^a-zA-Z0-9]", with: " ", options: .regularExpression)
+            self.adxKeywords = adxKeywords.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: ";", with: " ")
         }
-        self.title = title.replacingOccurrences(of: "[^a-zA-Z0-9]", with: " ", options: .regularExpression)
-        self.abstract = abstract.replacingOccurrences(of: "[^a-zA-Z0-9]", with: " ", options: .regularExpression)
+        self.title = title.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: ";", with: " ")
+        self.abstract = abstract.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: ";", with: " ")
     }
 }
 
