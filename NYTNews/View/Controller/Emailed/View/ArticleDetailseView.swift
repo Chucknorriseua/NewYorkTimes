@@ -56,6 +56,7 @@ struct ArticleDetailseView: View {
                                 .font(.system(size: 16, weight: .heavy))
                             
                             Text(articleResults.adxKeywords ?? "")
+                                .foregroundColor(.white)
                                 .font(.system(size: 10, weight: .heavy, design: .monospaced))
                                 .truncationMode(.tail)
                             
