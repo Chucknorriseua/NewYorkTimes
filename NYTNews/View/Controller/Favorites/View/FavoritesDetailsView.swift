@@ -36,18 +36,17 @@ struct FavoritesDetailsView: View {
                             VStack(alignment: .leading, spacing: 12) {
                                 Text(favorites.title ?? "")
                                     .foregroundColor(Color.yellow.opacity(0.9))
-                                    .font(.system(size: 22, weight: .bold))
-                                    .multilineTextAlignment(.center)
-                                    .frame(maxWidth: .infinity)
+                                    .font(.system(size: 26, weight: .bold))
+
                                 
                                 Text(favorites.desc ?? "")
                                     .foregroundColor(.white)
-                                    .font(.system(size: 16, weight: .heavy, design: .monospaced))
+                                    .font(.system(size: 18, weight: .heavy, design: .rounded))
                                 
                                 Text(favorites.adxKeywords ?? "")
                                     .foregroundColor(.white)
-                                    .font(.system(size: 10, weight: .heavy, design: .monospaced))
-                                    .truncationMode(.tail)
+                                    .font(.system(size: 14, weight: .heavy, design: .serif))
+                                 
                            
                                 HStack {
                                     Spacer()
