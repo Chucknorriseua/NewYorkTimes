@@ -16,7 +16,7 @@ struct FavoritesDetailsView: View {
     var body: some View {
         VStack {
             Button {
-                withAnimation(.snappy(duration: 1)) {
+                withAnimation(.spring) {
                     isShow.toggle()
                 }
             } label: {
@@ -32,10 +32,7 @@ struct FavoritesDetailsView: View {
                                     .frame(maxWidth: .infinity, maxHeight: 300)
                                     .clipShape(.rect(cornerRadius: 16))
                             } else {
-                                Image(systemName: "photo")
-                                    .resizable()
-                                    .foregroundStyle(Color.white)
-                                    .frame(width: 200, height: 200)
+                
                             }
                             
                             VStack(alignment: .leading, spacing: 12) {
@@ -82,7 +79,7 @@ struct FavoritesDetailsView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                         }.overlay(alignment: .topTrailing) {
                             Button {
-                                withAnimation(.easeOut(duration: 0.6)) {
+                                withAnimation(.easeOut(duration: 0.8)) {
                                     newsVm.removeFavorites(favorites: favorites)
                                 }
                             } label: {
@@ -92,7 +89,7 @@ struct FavoritesDetailsView: View {
                             }.background(.ultraThinMaterial.opacity(0.6))
                                 .clipShape(Circle())
                                 .padding([.trailing, .top], 4)
-                        }.transition(.opacity)
+                        }.transition(.scale)
                     
                     } else {
                         VStack {
@@ -109,13 +106,14 @@ struct FavoritesDetailsView: View {
                                 }
                             
                         }.padding(.all, 20)
+                            .transition(.scale)
                     }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: isShow ? 800 : 140)
             .background(.ultraThinMaterial.opacity(0.8))
             .clipShape(.rect(cornerRadius: 16))
-            .transition(.opacity)
+            .transition(.scale)
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
                     .stroke(
