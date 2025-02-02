@@ -17,7 +17,6 @@ struct EmailedController: View {
     var body: some View {
         NavigationView {
             VStack {
-                
                 ScrollView {
                     LazyVStack {
                         ForEach(newsViewModel.filteredEmailedNews, id: \.self) { article in
@@ -26,8 +25,9 @@ struct EmailedController: View {
                                 
                             }
                         }
-                    }.padding(.horizontal, 8)
-                        .padding([.top, .bottom], 50)
+                    }
+                    .padding(.horizontal, 8)
+                    .padding([.top, .bottom], 50)
                     
                 }.scrollIndicators(.hidden)
                     .background(.ultraThinMaterial)

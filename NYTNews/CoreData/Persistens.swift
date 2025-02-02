@@ -50,7 +50,7 @@ struct PersistenceController {
         }
     }
 
-    func addItem(id: Int, title: String, url: String, creator: String, description: String, image: Data, date: String, adxKeywords: String) -> SaveNewsCoreData {
+    func addItem(id: Int, title: String, url: String, creator: String, description: String, image: Data?, date: String, adxKeywords: String) -> SaveNewsCoreData {
         let newItem = SaveNewsCoreData(context: viewContext)
 
         newItem.image = image

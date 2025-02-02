@@ -43,6 +43,7 @@ class APIService {
                     completion(.failure(.decoderError))
                     return
                 }
+                
                 dump(news.results)
                 completion(.success(news))
             }

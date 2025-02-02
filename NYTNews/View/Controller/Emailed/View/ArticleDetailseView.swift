@@ -13,7 +13,6 @@ struct ArticleDetailseView: View {
     
     var body: some View {
         VStack {
-            
             ScrollView {
                 VStack(spacing: 20) {
                     if let media = articleResults.media.first, let metadata = media.mediaMetadata.last {
@@ -45,11 +44,11 @@ struct ArticleDetailseView: View {
                             .frame(width: 200, height: 200)
                     }
                     Group {
-                        VStack(alignment: .center, spacing: 14) {
+                        VStack(alignment: .leading, spacing: 14) {
                             Text(articleResults.title)
                                 .foregroundStyle(Color.yellow)
-                                .font(.system(size: 22, weight: .heavy))
-                            
+                                .font(.system(size: 26, weight: .bold))
+                           
                             Text(articleResults.abstract)
                                 .foregroundStyle(Color.white)
                                 .fontDesign(.rounded)
@@ -87,15 +86,16 @@ struct ArticleDetailseView: View {
                                     .foregroundColor(Color.white)
                             }
                         }
-                        .padding([.horizontal, .leading], 4)
+                      
                         .multilineTextAlignment(.leading)
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        
                     }
-                }
-            }.background(.ultraThinMaterial)
-                .background(Color.mint.opacity(0.4))
-            
-        }
+                }.padding(.horizontal, 14)
+            }
+        }.frame(maxWidth: .infinity)
+        .background(.ultraThinMaterial)
+        .background(Color.mint.opacity(0.4))
         .toolbar(content: {
             ToolbarItem(placement: .principal) {
                 Text("Details")

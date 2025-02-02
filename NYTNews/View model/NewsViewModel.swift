@@ -171,16 +171,50 @@ final class NewsViewModel: ObservableObject {
     }
     
     func addNewsInMyFavorites(article: ArticleResults) {
-        if !favoritesArray.contains(where: {$0.id == article.id ?? Int()}) {
+        if !favoritesArray.contains(where: { $0.id == article.id ?? Int() }) {
             
             guard let id = article.id,
                   let publishedDate = article.publishedDate,
-                  let adxKeywords = article.adxKeywords,
-                  let imageUrl = getlImageUrl(from: article) else { return }
+                  let adxKeywords = article.adxKeywords else {
+                return
+            }
+            
+            guard let imageUrl = getlImageUrl(from: article) else {
+ 
+                let addItem = PersistenceController.shared.addItem(
+                    id: id,
+                    title: article.title,
+                    url: article.url,
+                    creator: article.byline,
+                    description: article.abstract,
+                    image: nil,
+                    date: publishedDate,
+                    adxKeywords: adxKeywords)
+                
+                DispatchQueue.main.async {
+                    self.favoritesArray.append(addItem)
+                }
+                return
+            }
             
             APIService.shared.loadImage(from: imageUrl) { image in
-                guard let image = image, let imageData = image.pngData() else { return }
-                
+                guard let image = image, let imageData = image.pngData() else {
+                    let addItem = PersistenceController.shared.addItem(
+                        id: id,
+                        title: article.title,
+                        url: article.url,
+                        creator: article.byline,
+                        description: article.abstract,
+                        image: nil,
+                        date: publishedDate,
+                        adxKeywords: adxKeywords)
+                    
+                    DispatchQueue.main.async {
+                        self.favoritesArray.append(addItem)
+                    }
+                    return
+                }
+
                 let addItem = PersistenceController.shared.addItem(
                     id: id,
                     title: article.title,
@@ -191,8 +225,7 @@ final class NewsViewModel: ObservableObject {
                     date: publishedDate,
                     adxKeywords: adxKeywords)
                 
-                DispatchQueue.main.async {[weak self] in
-                    guard let self else { return}
+                DispatchQueue.main.async {
                     self.favoritesArray.append(addItem)
                 }
             }
