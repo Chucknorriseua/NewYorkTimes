@@ -76,17 +76,17 @@ struct CustomPicker<T: Hashable>: View {
                     .padding(.top, 10)
                     .padding(.bottom, 10)
                 }.scrollIndicators(.hidden)
-            }.frame(maxWidth: .infinity, maxHeight: 300)
-                .background(.ultraThinMaterial)
+            }.frame(maxWidth: .infinity, maxHeight: 240)
+                .background(.ultraThinMaterial.opacity(0.8))
             .clipShape(.rect(cornerRadius: 24))
             .transition(.scale)
             .overlay(
                 RoundedRectangle(cornerRadius: 24)
                     .stroke(
                         LinearGradient(
-                            gradient: Gradient(colors: [.white]),
-                            startPoint: .leading,
-                            endPoint: .trailing
+                            gradient: Gradient(colors: [.white, .mint.opacity(0.5)]),
+                            startPoint: .top,
+                            endPoint: .bottom
                         ),
                         lineWidth: 2
                     )

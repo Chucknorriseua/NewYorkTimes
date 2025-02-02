@@ -22,14 +22,11 @@ struct ViewedController: View {
                         }
                     }
                 }.padding(.horizontal, 8)
-                    .padding([.top, .bottom], 50)
+                    .padding(.bottom, 50)
                 
             }.scrollIndicators(.hidden)
                 .background(.ultraThinMaterial)
                 .background(Color.mint.opacity(0.4))
-                .overlay(alignment: .topTrailing, content: {
-                    CustomButtonCategory(isShowCategory: $isShowCategory)
-                })
                 .overlay(alignment: .center) {
                     VStack {
                         CustomPicker(article: newsViewModel.viewedCategories, selectedCtegory: $newsViewModel.selectedMostViewed, isShowCategory: $isShowCategory)
@@ -37,6 +34,21 @@ struct ViewedController: View {
                 }
                 .onDisappear {
                     isShowCategory = false
+                }
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        withAnimation {
+                            VStack {
+                                Text(newsViewModel.selectedMostViewed ?? "")
+                                    .font(.system(size: 26, weight: .bold))
+                                    .foregroundStyle(Color.white)
+                                    .underline(color: .white.opacity(0.5))
+                            }.padding(.leading)
+                        }
+                    }
+                    ToolbarItem(placement: .topBarTrailing) {
+                        CustomButtonCategory(isShowCategory: $isShowCategory)
+                    }
                 }
         }
         

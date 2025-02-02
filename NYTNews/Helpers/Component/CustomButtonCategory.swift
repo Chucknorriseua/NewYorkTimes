@@ -19,12 +19,9 @@ struct CustomButtonCategory: View {
                 }
             } label: {
                 Image(systemName: "list.bullet.circle")
-                    .font(.system(size: 32))
+                    .font(.system(size: 24))
                     .foregroundStyle(Color.white)
-            }.frame(width: 46, height: 46)
-                .background(Color.blue.opacity(0.6))
-                .clipShape(Circle())
-                .transition(.scale)
-        }.padding(.trailing, 12)
+            }
+        }
     }
 }

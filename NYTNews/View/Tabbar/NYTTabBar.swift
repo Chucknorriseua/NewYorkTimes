@@ -69,7 +69,7 @@ struct NYTTabBar: View {
                 HStack{
                     ForEach((TabbedItems.allCases), id: \.self) { item in
                             Button {
-                                withAnimation(.linear(duration: 0.8)) {
+                                withAnimation(.linear(duration: 0.5)) {
                                     selectedTab = item.rawValue
                                 }
                             } label: {
@@ -95,12 +95,12 @@ extension NYTTabBar{
             Image(systemName: imageName)
                 .resizable()
                 .renderingMode(.template)
-                .foregroundColor(isActive ? .black : .gray)
+                .foregroundColor(isActive ? .brown : .gray)
                 .frame(width: 20, height: 20)
             if isActive{
                 Text(title)
-                    .font(.system(size: 14))
-                    .foregroundColor(isActive ? .black : .gray)
+                    .font(.system(size: 14, weight: .heavy))
+                    .foregroundColor(isActive ? .black.opacity(0.6) : .gray)
             }
             Spacer()
         }

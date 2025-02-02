@@ -22,17 +22,15 @@ struct SharedController: View {
                                 EmailedCell(article: article)
                             }
                         }
-                    }.padding(.horizontal, 8)
-                        .padding([.top, .bottom], 50)
+                    }
+                    .padding(.horizontal, 8)
+                    .padding(.bottom, 50)
                 }
                 .scrollIndicators(.hidden)
                 .background(.ultraThinMaterial)
                 .background(Color.mint.opacity(0.4))
            
             }
-            .overlay(alignment: .topTrailing, content: {
-                CustomButtonCategory(isShowCategory: $isShowCategory)
-            })
             .overlay(alignment: .center) {
                 VStack {
                     CustomPicker(article: newsViewModel.sharedCategories, selectedCtegory: $newsViewModel.selectedMostShared, isShowCategory: $isShowCategory)
@@ -41,11 +39,22 @@ struct SharedController: View {
             .onDisappear {
                 isShowCategory = false
             }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    withAnimation {
+                        VStack {
+                            Text(newsViewModel.selectedMostShared ?? "")
+                                .font(.system(size: 26, weight: .bold))
+                                .foregroundStyle(Color.white)
+                                .underline(color: .white.opacity(0.5))
+                        }.padding(.leading)
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    CustomButtonCategory(isShowCategory: $isShowCategory)
+                }
+            }
         }
     }
-}
-
-#Preview {
-    SharedController()
 }
 
