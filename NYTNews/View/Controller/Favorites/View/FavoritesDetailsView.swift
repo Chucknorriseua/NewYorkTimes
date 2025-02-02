@@ -27,9 +27,8 @@ struct FavoritesDetailsView: View {
                             if let imageData = favorites.image,
                                let uiImage = UIImage(data: imageData) {
                                 Image(uiImage: uiImage)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(maxWidth: .infinity, maxHeight: 300)
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(maxWidth: .infinity, maxHeight: 220)
                                     .clipShape(.rect(cornerRadius: 16))
                             } else {
                 
