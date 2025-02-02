@@ -13,7 +13,7 @@ struct SharedController: View {
     @State private var isShowCategory: Bool = false
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             VStack {
                 ScrollView {
                     LazyVStack {
@@ -28,6 +28,7 @@ struct SharedController: View {
                 .scrollIndicators(.hidden)
                 .background(.ultraThinMaterial)
                 .background(Color.mint.opacity(0.4))
+           
             }
             .overlay(alignment: .topTrailing, content: {
                 CustomButtonCategory(isShowCategory: $isShowCategory)

@@ -13,7 +13,7 @@ struct ViewedController: View {
     @State private var isShowCategory: Bool = false
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ScrollView {
                 LazyVStack {
                     ForEach(newsViewModel.filteredViewedNews, id: \.self) { article in

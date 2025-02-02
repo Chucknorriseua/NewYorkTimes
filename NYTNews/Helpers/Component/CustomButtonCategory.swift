@@ -22,7 +22,7 @@ struct CustomButtonCategory: View {
                     .font(.system(size: 32))
                     .foregroundStyle(Color.white)
             }.frame(width: 46, height: 46)
-                .background(Color.blue.opacity(0.8))
+                .background(Color.blue.opacity(0.6))
                 .clipShape(Circle())
                 .transition(.scale)
         }.padding(.trailing, 12)

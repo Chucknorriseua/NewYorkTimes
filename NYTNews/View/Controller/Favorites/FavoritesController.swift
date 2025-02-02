@@ -14,7 +14,7 @@ struct FavoritesController: View {
     @State private var isShowDetailse: Bool = false
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ScrollView {
                 LazyVStack {
                     ForEach(newsViewModel.favoritesArray, id: \.self) { article in

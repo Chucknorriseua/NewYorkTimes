@@ -125,25 +125,43 @@ final class NewsViewModel: ObservableObject {
     }
     
     private func filterNewsByDate(news: News) -> News {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        
-        let sortedResults = news.results.sorted { article1, article2 in
-            guard let dateString1 = article1.publishedDate, let dateString2 = article2.publishedDate else {
-                return false
-            }
-            if let date1 = formatter.date(from: dateString1), let date2 = formatter.date(from: dateString2) {
-                return date1 > date2
-            }
-            return false
-        }
-        return News(
-            status: news.status,
-            copyright: news.copyright,
-            numResults: news.numResults,
-            results: sortedResults
-        )
-    }
+       let calendar = Calendar.current
+       let today = Date()
+       
+       let filteredResults = news.results.filter { article in
+           guard let dateString = article.publishedDate else {
+               return false
+           }
+
+           let dateFormatter = DateFormatter()
+           dateFormatter.dateFormat = "yyyy-MM-dd"
+           
+           guard let publishedDate = dateFormatter.date(from: dateString) else {
+               return false
+           }
+  
+           let daysDifference = calendar.dateComponents([.day], from: publishedDate, to: today).day ?? 0
+           return daysDifference >= 0 && daysDifference <= 30
+       }
+       
+       let sortedResults = filteredResults.sorted { article1, article2 in
+           guard let dateString1 = article1.publishedDate, let dateString2 = article2.publishedDate else {
+               return false
+           }
+           
+           let dateFormatter = DateFormatter()
+           dateFormatter.dateFormat = "yyyy-MM-dd"
+           
+           guard let publishedDate1 = dateFormatter.date(from: dateString1),
+                 let publishedDate2 = dateFormatter.date(from: dateString2) else {
+               return false
+           }
+           
+           return publishedDate1 > publishedDate2
+       }
+       
+       return News(status: "", copyright: "", numResults: 0, results: sortedResults)
+   }
     
     func removeFavorites(favorites: SaveNewsCoreData) {
         if let index = favoritesArray.firstIndex(where: {$0.id == favorites.id}) {

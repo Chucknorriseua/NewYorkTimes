@@ -16,14 +16,14 @@ struct EmailedCell: View {
             VStack(alignment: .leading) {
                 Text(article.title)
                     .foregroundStyle(Color.yellow)
-                    .font(.headline)
+                    .font(.system(size: 18, weight: .bold))
                 HStack {
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 10) {
                         Text(article.byline)
                             .font(.subheadline)
                             .foregroundColor(.white)
                         Text(article.publishedDate ?? "")
-                            .font(.caption)
+                            .font(.system(size: 12, weight: .bold))
                             .foregroundColor(.blue.opacity(0.6))
                     }
                     Spacer()
@@ -32,23 +32,10 @@ struct EmailedCell: View {
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }.frame(maxWidth: .infinity, maxHeight: 160)
-        .background(.ultraThinMaterial.opacity(0.8))
-            .clipShape(.rect(cornerRadius: 24))
-            .overlay(
-                RoundedRectangle(cornerRadius: 22)
-                    .stroke(
-                        LinearGradient(
-                            gradient: Gradient(colors: [.gray, .white.opacity(0.8)]),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        ),
-                        lineWidth: 2
-                    )
-            )
             .overlay(alignment: .trailing, content: {
                 VStack {
                     Image(systemName: "chevron.right")
-                        .foregroundStyle(Color.blue.opacity(0.5))
+                        .foregroundStyle(Color.white)
                 }.padding(.trailing, 4)
             })
             .padding(.horizontal, 8)

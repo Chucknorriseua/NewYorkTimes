@@ -16,6 +16,9 @@ struct CustomPicker<T: Hashable>: View {
     var body: some View {
         if isShowCategory {
             VStack {
+                Text("Categories")
+                    .foregroundStyle(Color.white)
+                    .font(.system(size: 14, weight: .heavy))
                 ScrollView {
                     VStack {
                         Button("All") {
